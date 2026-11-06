@@ -13,9 +13,9 @@ With a 2-byte overhead, it supports digest lengths from 1 to 256 bytes.
 ### Bytes
 
 1. **Header** – 1 byte  
-    * **Function** – bits 7 to 2  
-      An unsigned index from 0 to 63 into [the registry](#registry).
-    * **Length** – bits 1 to 0  
+    * **Function** – bits 7–2  
+    An unsigned index from 0–63 into [the registry](#registry).
+    * **Length** – bits 1–0  
       A flag indicating the digest length:
       
       | Flag | Length                              |
@@ -26,11 +26,9 @@ With a 2-byte overhead, it supports digest lengths from 1 to 256 bytes.
       | `11` | 64 bytes                            |
 
 2. **Custom length** – 1 byte (present only when the length flag is `00`)  
-   An unsigned byte encoding the digest length in bytes minus one. Values from 0 to 255 represent lengths from 1 to 256 bytes.
+   An unsigned byte encoding the digest length minus one. Values 0–255 correspond to digest lengths of 1–256 bytes.
 
    Digest lengths of 16, 32, and 64 bytes must use their dedicated length flags. Specifying these lengths with the custom length byte is invalid.
-
-   Digests may only be truncated to a length smaller than the hash function's default digest length.
 
 3. **Digest**  
    The binary digest of the hash function.
@@ -61,13 +59,13 @@ Varhash is not intended to replace Multihash, but a comparison can be useful.
   Multihash uses [LEB128](https://en.wikipedia.org/wiki/LEB128) to achieve unlimited extensibility, adding parsing complexity and overhead. Varhash doesn't, making it simpler to implement, faster to process and smaller in size, while still supporting variable-length digests.
 
 * **Smaller**  
-  For common digest sizes (16, 32, or 64 bytes), Varhash incurs an overhead of only 1 byte. Depending on the hash function, Multihash requires 2 to 5 bytes to express the same information. It may not sound like much, but it adds up if you have a lot of hashes. 1 billion bytes = 1 GB.
+  For common digest sizes (16, 32, or 64 bytes), Varhash incurs an overhead of only 1 byte. Depending on the hash function, Multihash requires 2–5 bytes to express the same information. It may not sound like much, but it adds up if you have a lot of hashes. 1 billion bytes = 1 GB.
 
 * **Relatively future-proof**  
   Protocols rarely change their hash functions. NIST has approved 12 hash functions since 1993. By maintaining a curated registry of well-established hash functions, 64 slots should last a long time.  
 
 * **Reasonably variable-length**  
-  The custom length allows arbitrary digest sizes within reason, from 1 to 256 bytes. This includes truncated hashes.
+  The custom length allows arbitrary digest sizes within reason, 1–256 bytes, including truncated hashes.
 
 ## Registry
 
