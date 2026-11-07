@@ -1,6 +1,6 @@
 # Varhash
 
-Varhash is a compact binary format for encoding hash digests. Its design evolved from [Multihash](https://multiformats.io), trading extensibility for smaller size and simplicity.
+Varhash is a compact self-describing format for encoding hash digests. Its design evolved from [Multihash](https://multiformats.io/multihash), trading indefinite extensibility for simplicity and smaller size.
 
 With a 1-byte overhead, it supports:
 * Up to 64 hash functions
@@ -64,7 +64,7 @@ Varhash is not intended to replace Multihash, but a comparison can be useful.
   For common digest sizes (16, 32, or 64 bytes), Varhash incurs an overhead of only 1 byte. Depending on the hash function, Multihash requires 2–5 bytes to express the same information. It may not sound like much, but it adds up if you have a lot of hashes. 1 billion bytes = 1 GB.
 
 * **Relatively future-proof**  
-  Protocols rarely change their hash functions. NIST has approved 12 hash functions since 1993. By maintaining a curated registry of well-established hash functions, 64 slots should last a long time.  
+  Protocols rarely change their hash functions. NIST has approved 12 hash functions since 1993. By maintaining a conservatively curated registry of well-established hash functions, 64 slots should last a long time.
 
 * **Reasonably variable-length**  
   The custom length allows arbitrary digest sizes within reason, 1–256 bytes, including truncated hashes.
