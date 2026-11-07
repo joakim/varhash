@@ -28,6 +28,8 @@ With a 2-byte overhead, it supports digest lengths from 1 to 256 bytes.
 2. **Custom length** – 1 byte (present only when the length flag is `00`)  
    An unsigned byte encoding the digest length minus one. Values 0–255 correspond to digest lengths of 1–256 bytes.
 
+   Custom lengths must be ≤ the algorithm's default digest length. Any truncation of the digest must consist of the leading bytes.
+
    Digest lengths of 16, 32, and 64 bytes must use their dedicated length flags. Specifying these lengths with the custom length byte is invalid.
 
 3. **Digest**  
